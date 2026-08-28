@@ -7,9 +7,12 @@ pipeline:
   properties:
     ci:
       codebase:
-        connectorRef: <+input>
+        connectorRef: github
         repoName: harness-lemmings
-        build: <+input>
+        build:
+          type: branch
+          spec:
+            branch: main
   stages:
     - stage:
         name: Build Lemmings
@@ -20,7 +23,7 @@ pipeline:
           infrastructure:
             type: KubernetesDirect
             spec:
-              connectorRef: <+input>
+              connectorRef: k8s_local
               namespace: harness-builds
               automountServiceAccountToken: true
           execution:
@@ -30,8 +33,8 @@ pipeline:
                   name: Build and Push
                   identifier: build_and_push
                   spec:
-                    connectorRef: <+input>
-                    repo: <+input>
+                    connectorRef: dockerhub
+                    repo: scarolan/harness-lemmings
                     tags:
                       - build-<+pipeline.sequenceId>
                       - latest
@@ -68,7 +71,7 @@ pipeline:
             environmentRef: dev
             deployToAll: false
             infrastructureDefinitions:
-              - identifier: <+input>
+              - identifier: k8s_local
           execution:
             steps:
               - step:
@@ -160,7 +163,7 @@ pipeline:
             environmentRef: prod
             deployToAll: false
             infrastructureDefinitions:
-              - identifier: <+input>
+              - identifier: k8s_local
           execution:
             steps:
               - step:
