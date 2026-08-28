@@ -106,11 +106,11 @@ scripts/
 ```
 
 The Dockerfile does the heavy lifting:
-1. Downloads Lemmings shareware v1.9 (freely distributable, ~4MB WAD + EXE)
+1. Downloads Lemmings DosBox image
 2. Creates a `.jsdos` bundle (DOSBox-in-WebAssembly game package)
 3. Packages everything in an nginx container
 
-At runtime, the browser loads js-dos from CDN, which emulates DOSBox in WebAssembly, and runs the original Lemmings.EXE with the shareware WAD. Full game, in a browser, deployed by a CI/CD pipeline.
+At runtime, the browser loads js-dos from CDN, which emulates DOSBox in WebAssembly, and runs the original Lemmings.EXE. Full game, in a browser, deployed by a CI/CD pipeline.
 
 ## Customization
 
@@ -128,7 +128,7 @@ Lemmings_NAMESPACE=lemmings-prod Lemmings_TAG=build-42 ./scripts/setup.sh
 
 ## Why?
 
-Because every platform must answer the question. And because deploying a game from 1993 through a modern CI/CD pipeline with governance gates, smoke tests, and progressive delivery is genuinely funny — and also demonstrates every capability that matters:
+Because Lemmings is more fun than the Hello World container.
 
 - Container builds (multi-stage, external asset download)
 - Artifact management (push/pull from registry)
@@ -138,26 +138,12 @@ Because every platform must answer the question. And because deploying a game fr
 - Progressive delivery (dev → approval → prod)
 - GitOps trigger (push to main → pipeline fires)
 
-All for a 32-year-old game that runs in DOSBox emulated in WebAssembly served by nginx deployed by Helm orchestrated by Harness triggered by a git push.
-
-## "But does it actually *run* Lemmings?"
-
-Yes. For the pedants in the back: Harness doesn't just *deploy* Lemmings — it *runs* Lemmings.
-
-`app/Dockerfile.runner` builds a headless container with [Chocolate Doom](https://www.chocolate-lemmings.org/) (a faithful source port). When executed as a Kubernetes Job on the same infrastructure managed by the Harness delegate, it processes Lemmings's built-in demo recording frame-by-frame:
-
-```
-timed 5026 gametics in 127 realtics (1385.118164 fps)
-```
-
-5,026 game frames rendered at 1,385 FPS on the delegate's cluster. The Lemmings engine initialized, loaded the WAD, ran the renderer, ticked the game logic, and completed — all orchestrated by Harness. No browser, no WebAssembly, no tricks. Native Lemmings binary, running on Harness compute.
-
-So to be precise: Harness *deploys* playable Lemmings (the browser version) **and** *runs* Lemmings (the headless timedemo). Both definitions are satisfied. You're welcome.
+All for a 35-year-old game that runs in DOSBox emulated in WebAssembly served by nginx deployed by Helm orchestrated by Harness triggered by a git push.
 
 ## License
 
-This repo's code is MIT licensed. Lemmings shareware is freely distributable per id Software's original terms. The shareware WAD and executable are downloaded at build time and not stored in this repository.
+This repo's code is MIT licensed. Lemmings is abandonware - please don't sue us!
 
 ---
 
-*Rip and tear, until it is done.* 🔥
+*Let's go!* 🐁
