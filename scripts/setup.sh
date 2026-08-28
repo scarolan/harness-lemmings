@@ -38,4 +38,4 @@ echo ""
 NODE_PORT=$(kubectl get svc "$RELEASE_NAME" -n "$NAMESPACE" -o jsonpath='{.spec.ports[0].nodePort}')
 echo "Access LEMMINGS at: http://localhost:${NODE_PORT}"
 echo ""
-echo "Oh no!"
+echo "=== LET'S GO! ==="

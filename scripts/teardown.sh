@@ -20,4 +20,4 @@ echo "[3/3] Removing local image..."
 docker rmi "$IMAGE_NAME:latest" 2>/dev/null || true
 
 echo ""
-echo "=== LEMMINGS HAS BEEN VANQUISHED ==="
+echo "=== THE LEMMINGS HAVE BEEN NUKED ==="
