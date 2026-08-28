@@ -20,6 +20,7 @@ FROM nginx:1.27-alpine
 # The context is the app/ directory, so nginx.conf and index.html are at the root
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY index.html /usr/share/nginx/html/index.html
+COPY favicon.svg /usr/share/nginx/html/favicon.svg
 COPY --from=builder /build/lemmings.jsdos /usr/share/nginx/html/lemmings.jsdos
 
 RUN chown -R nginx:nginx /var/cache/nginx /var/log/nginx /etc/nginx/conf.d && \

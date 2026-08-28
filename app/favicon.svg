@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" style="image-rendering: pixelated;">
+  <style>
+    .g { fill: #39ff14; } /* Neon Green Hair */
+    .s { fill: #ffcc99; } /* Skin Face */
+    .b { fill: #0055ff; } /* Blue Robe */
+    .w { fill: #ffffff; } /* Eye White */
+    .k { fill: #000000; } /* Eye Pupil / Black */
+    .p { fill: #8b5a2b; } /* Brown Shoes */
+  </style>
+  <!-- Row 2 -->
+  <rect x="5" y="2" width="6" height="1" class="g" />
+  <!-- Row 3 -->
+  <rect x="4" y="3" width="8" height="1" class="g" />
+  <!-- Row 4 -->
+  <rect x="3" y="4" width="10" height="1" class="g" />
+  <!-- Row 5 -->
+  <rect x="3" y="5" width="10" height="1" class="g" />
+  <!-- Row 6 -->
+  <rect x="4" y="6" width="8" height="1" class="s" />
+  <!-- Row 7 (Face & Eyes) -->
+  <rect x="4" y="7" width="1" height="1" class="s" />
+  <rect x="5" y="7" width="1" height="1" class="w" />
+  <rect x="6" y="7" width="1" height="1" class="k" />
+  <rect x="7" y="7" width="2" height="1" class="s" />
+  <rect x="9" y="7" width="1" height="1" class="w" />
+  <rect x="10" y="7" width="1" height="1" class="k" />
+  <rect x="11" y="7" width="1" height="1" class="s" />
+  <!-- Row 8 -->
+  <rect x="4" y="8" width="8" height="1" class="s" />
+  <!-- Row 9 -->
+  <rect x="5" y="9" width="6" height="1" class="s" />
+  <!-- Row 10 (Robe) -->
+  <rect x="4" y="10" width="8" height="1" class="b" />
+  <!-- Row 11 -->
+  <rect x="3" y="11" width="10" height="1" class="b" />
+  <!-- Row 12 -->
+  <rect x="3" y="12" width="10" height="1" class="b" />
+  <!-- Row 13 -->
+  <rect x="3" y="13" width="10" height="1" class="b" />
+  <!-- Row 14 -->
+  <rect x="4" y="14" width="8" height="1" class="b" />
+  <!-- Row 15 (Feet) -->
+  <rect x="4" y="15" width="2" height="1" class="p" />
+  <rect x="10" y="15" width="2" height="1" class="p" />
+</svg>
