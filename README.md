@@ -33,7 +33,7 @@ If you just want to see Lemmings running locally without a pipeline:
 ./scripts/setup.sh
 
 # Open in browser
-open http://localhost:30666
+open http://localhost:31991
 
 # Tear it down when you're done
 ./scripts/teardown.sh
@@ -73,14 +73,14 @@ Import `.harness/pipeline.yaml` into your project. Fill in the `<+input>` runtim
 
 Execute the pipeline. Watch it:
 1. Clone this repo
-2. Build the Lemmings container (first build ~5 min due to downloading shareware assets)
+2. Build the Lemmings container (uses local shareware assets in the app/ directory)
 3. Push to your registry
 4. Deploy to dev namespace
 5. Smoke test (curls the health endpoint + verifies "Lemmings" in page)
 6. Wait for your approval (the governance demo moment)
 7. Deploy to prod
 
-Then open `http://<node-ip>:30666` and play Lemmings.
+Then open `http://<node-ip>:31991` and play Lemmings.
 
 ## How It Works
 
@@ -88,7 +88,7 @@ Then open `http://<node-ip>:30666` and play Lemmings.
 app/
 ├── index.html      # Browser UI - loads js-dos, renders Lemmings
 ├── nginx.conf      # Web server config with /healthz endpoint
-├── Dockerfile      # Multi-stage: downloads shareware → bundles → serves
+├── Dockerfile      # Multi-stage: bundles game assets → serves via nginx
 └── .dockerignore
 
 helm/harness-lemmings/  # Helm chart for k8s deployment
@@ -106,7 +106,7 @@ scripts/
 ```
 
 The Dockerfile does the heavy lifting:
-1. Downloads Lemmings DosBox image
+1. Copies the local Lemmings DOS game files and DOSBox configuration
 2. Creates a `.jsdos` bundle (DOSBox-in-WebAssembly game package)
 3. Packages everything in an nginx container
 
@@ -116,21 +116,21 @@ At runtime, the browser loads js-dos from CDN, which emulates DOSBox in WebAssem
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `Lemmings_NAMESPACE` | `lemmings` | Kubernetes namespace |
-| `Lemmings_RELEASE` | `harness-lemmings` | Helm release name |
-| `Lemmings_IMAGE` | `harness-lemmings` | Container image name |
-| `Lemmings_TAG` | `latest` | Image tag |
+| `LEMMINGS_NAMESPACE` | `lemmings` | Kubernetes namespace |
+| `LEMMINGS_RELEASE` | `harness-lemmings` | Helm release name |
+| `LEMMINGS_IMAGE` | `harness-lemmings` | Container image name |
+| `LEMMINGS_TAG` | `latest` | Image tag |
 
 Override in your pipeline or local env:
 ```bash
-Lemmings_NAMESPACE=lemmings-prod Lemmings_TAG=build-42 ./scripts/setup.sh
+LEMMINGS_NAMESPACE=lemmings-prod LEMMINGS_TAG=build-42 ./scripts/setup.sh
 ```
 
 ## Why?
 
 Because Lemmings is more fun than the Hello World container.
 
-- Container builds (multi-stage, external asset download)
+- Container builds (multi-stage, bundled assets)
 - Artifact management (push/pull from registry)
 - Helm-based deployment
 - Health checks and smoke tests
