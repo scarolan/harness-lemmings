@@ -43,3 +43,48 @@ To allow multiple environments (Dev, Prod, Staging) or multiple applications (Do
   ```bash
   SVC_URL="http://<+infra.releaseName>.<+infra.namespace>.svc.cluster.local"
   ```
+
+---
+
+## 3. Harness CLI Usage Guidelines
+
+When executing Harness CLI commands inside this workspace, always adhere to the following principles and syntax to ensure reliable operations:
+
+### ✦ Authentication & Preloaded Context
+* The system has Harness CLI 3.0 installed and authenticated. You do not need to provide API keys, tokens, or account IDs manually. The CLI automatically uses the active session.
+
+### ✦ Command Grammar: Verb-Noun Syntax
+* **Strict Order**: Commands must always follow the format `harness <verb> <noun> [id] [flags]`.
+* **Never use Noun-Verb Order**:
+  * **CORRECT**: `harness list pipeline`, `harness get execution`, `harness execute pipeline`
+  * **INCORRECT**: `harness pipeline list`, `harness execution get`, `harness pipeline execute`
+
+### ✦ Syntax & Resource Discovery
+If unsure about the exact syntax, fields, or flags for any command, query the CLI's self-documenting features directly:
+* Use `--help` on any command: `harness list execution --help`
+* Discover modules, nouns, and fields:
+  * `harness get module pipeline` (module definitions, nouns, guides)
+  * `harness get noun execution` (fields and commands for a specific noun)
+
+### ✦ Core Commands & Quick Reference
+* **Common Verbs**:
+  * `list`: Retrieves resources. An optional `[scope]` narrows results (e.g. pipeline ID for its executions).
+  * `get`: Retrieves details for a single resource by ID.
+  * `create`: Creates a resource (use `-f <file.yaml>` or `--set key=value`).
+  * `update`: Updates a resource by ID.
+  * `delete`: Deletes a resource by ID.
+  * `execute`: Runs/triggers a resource by ID (e.g., executing a pipeline).
+* **Common Scoping Flags**:
+  * Use `--org` or `--project` to override the default resolved scope.
+  * Use `--profile <name>` to run commands under a preconfigured profile.
+  * Use `--level project|org|account` for multi-level nouns (like secrets, users).
+
+### ✦ Processing & Output Formats
+* **Formatted Outputs**:
+  * `--format json` or `--json`: Returns the raw, full API response. Useful for examining specific fields or automation.
+  * `--format yaml` or `--yaml`: Returns full data object with envelope stripped, perfect for round-trip configuration.
+  * `--format table / csv / tsv`: Good for human-readable summaries or text processing.
+* **Paging (Defaults to 20 items)**:
+  * Use `--all` to fetch all items.
+  * Use `--limit <n>` to control page size.
+
