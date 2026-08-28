@@ -4,9 +4,9 @@
   <img src="screenshots/lemmings.png" width="800" alt="Lemmings">
 </p>
 
-> "Will it run Lemmings?" — Every engineer, at every company, since 1993.
+> "Oh no!" — Every Lemming, right before exploding, since 1991.
 
-Yes. Yes it will. This repo deploys a fully playable Lemmings (1993 shareware) to a Kubernetes cluster using a [Harness](https://harness.io) CI/CD pipeline.
+This repo deploys a fully playable version of the original Lemmings (1991) to a Kubernetes cluster using a [Harness](https://harness.io) CI/CD pipeline.
 
 The container packages the original Lemmings shareware in a browser-playable format (via [js-dos](https://js-dos.com)) served by nginx. The Harness pipeline builds the container, pushes it to a registry, deploys to dev, runs a smoke test, gates on manual approval, and promotes to prod.
 
