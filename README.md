@@ -29,11 +29,8 @@ commit → build container → push to registry → deploy to dev → smoke test
 If you just want to see Lemmings running locally without a pipeline:
 
 ```bash
-# Build and deploy to your local cluster
+# Build and deploy to your local cluster (automatically assigns a dynamic port)
 ./scripts/setup.sh
-
-# Open in browser
-open http://localhost:31991
 
 # Tear it down when you're done
 ./scripts/teardown.sh
@@ -80,7 +77,15 @@ Execute the pipeline. Watch it:
 6. Wait for your approval (the governance demo moment)
 7. Deploy to prod
 
-Then open `http://<node-ip>:31991` and play Lemmings.
+Then open your browser to the dynamically assigned NodePort to play Lemmings. You can retrieve the assigned port by running:
+
+```bash
+# For dev environment
+kubectl get svc harness-lemmings -n lemmings-dev -o jsonpath='{.spec.ports[0].nodePort}'
+
+# For prod environment
+kubectl get svc harness-lemmings -n lemmings-prod -o jsonpath='{.spec.ports[0].nodePort}'
+```
 
 ## How It Works
 
