@@ -7,6 +7,9 @@ IMAGE_NAME="${LEMMINGS_IMAGE:-harness-lemmings}"
 
 echo "=== TEARING DOWN LEMMINGS ==="
 
+# Kill port-forward
+pkill -f "kubectl port-forward.*${NAMESPACE}" 2>/dev/null || true
+
 # Uninstall Helm release
 echo "[1/3] Uninstalling Helm release..."
 helm uninstall "$RELEASE_NAME" --namespace "$NAMESPACE" 2>/dev/null || echo "  (already removed)"
