@@ -1,0 +1,45 @@
+service:
+  name: lemmings-svc
+  identifier: lemmings_svc
+  orgIdentifier: sandbox
+  projectIdentifier: harness_demo_seanc
+  serviceDefinition:
+    type: NativeHelm
+    spec:
+      manifests:
+        - manifest:
+            identifier: lemmings_helm
+            type: HelmChart
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: github_lemmings
+                  gitFetchType: Branch
+                  folderPath: helm/harness-lemmings
+                  repoName: scarolan/harness-lemmings
+                  branch: main
+              helmVersion: V3
+              skipResourceVersioning: false
+              enableDeclarativeRollback: false
+        - manifest:
+            identifier: values_override
+            type: Values
+            spec:
+              store:
+                type: Inline
+                spec:
+                  content: |
+                    image:
+                      repository: carolanio/harness-lemmings
+                      tag: <+artifact.tag>
+      artifacts:
+        primary:
+          primaryArtifactRef: lemmings_image
+          sources:
+            - identifier: lemmings_image
+              spec:
+                connectorRef: dockerhub
+                imagePath: carolanio/harness-lemmings
+                tag: <+input>
+              type: DockerRegistry
