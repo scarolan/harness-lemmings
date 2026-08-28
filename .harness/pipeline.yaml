@@ -71,7 +71,7 @@ pipeline:
             environmentRef: dev
             deployToAll: false
             infrastructureDefinitions:
-              - identifier: k8s_local
+              - identifier: demo_scarolan
           execution:
             steps:
               - step:
@@ -163,7 +163,7 @@ pipeline:
             environmentRef: prod
             deployToAll: false
             infrastructureDefinitions:
-              - identifier: k8s_local
+              - identifier: demo_scarolan_prod
           execution:
             steps:
               - step:
