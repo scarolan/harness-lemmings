@@ -23,7 +23,7 @@ COPY index.html /usr/share/nginx/html/index.html
 COPY --from=builder /build/lemmings.jsdos /usr/share/nginx/html/lemmings.jsdos
 
 RUN chown -R nginx:nginx /var/cache/nginx /var/log/nginx /etc/nginx/conf.d && \
-    sed -i 's|/var/run/nginx.pid|/tmp/nginx.pid|g' /etc/nginx/nginx.conf || true && \
+    sed -i 's|/run/nginx.pid|/tmp/nginx.pid|g' /etc/nginx/nginx.conf || true && \
     touch /tmp/nginx.pid && chown nginx:nginx /tmp/nginx.pid
 
 EXPOSE 8080
