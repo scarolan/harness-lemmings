@@ -1,10 +1,10 @@
 service:
-  name: lemmings-svc
-  identifier: lemmings_svc
+  name: lemmings-k8s-svc
+  identifier: lemmings_k8s_svc
   orgIdentifier: sandbox
   projectIdentifier: harness_demo_seanc
   serviceDefinition:
-    type: NativeHelm
+    type: Kubernetes
     spec:
       manifests:
         - manifest:
