@@ -34,7 +34,7 @@ pipeline:
                   identifier: build_and_push
                   spec:
                     connectorRef: dockerhub
-                    repo: scarolan/harness-lemmings
+                    repo: carolanio/harness-lemmings
                     tags:
                       - build-<+pipeline.sequenceId>
                       - latest
