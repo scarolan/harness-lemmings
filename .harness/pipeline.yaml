@@ -86,6 +86,8 @@ pipeline:
                       spec:
                         script: |
                           echo "Waiting for Lemmings to be ready..."
+                          echo "DEBUG infra.releaseName = <+infra.releaseName>"
+                          echo "DEBUG manifest.releaseName = <+manifest.releaseName>"
                           sleep 10
                           SVC_URL="http://<+infra.releaseName>.<+infra.namespace>.svc.cluster.local"
                           for i in $(seq 1 5); do
