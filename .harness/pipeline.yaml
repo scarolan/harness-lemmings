@@ -85,6 +85,10 @@ pipeline:
                       type: Inline
                       spec:
                         script: |
+                          echo "Debugging Release Name Variables:"
+                          echo "infra.releaseName = <+infra.releaseName>"
+                          echo "manifest.releaseName = <+manifest.releaseName>"
+                          echo "infra.kubernetes.infraId = <+infra.kubernetes.infraId>"
                           echo "Waiting for Lemmings to be ready..."
                           sleep 10
                           SVC_URL="http://<+infra.releaseName>.<+infra.namespace>.svc.cluster.local"
