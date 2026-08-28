@@ -1,8 +1,7 @@
 # Lemmings - Deployed by Harness
 
 <p align="center">
-  <img src="screenshots/lemmings-title.png" width="400" alt="Lemmings Title Screen">
-  <img src="screenshots/lemmings-gameplay.png" width="400" alt="Lemmings Gameplay">
+  <img src="screenshots/lemmings.png" width="800" alt="Lemmings">
 </p>
 
 > "Will it run Lemmings?" — Every engineer, at every company, since 1993.
