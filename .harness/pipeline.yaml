@@ -24,7 +24,7 @@ pipeline:
             type: KubernetesDirect
             spec:
               connectorRef: k8s_local
-              namespace: lemmings
+              namespace: harness-ci
               automountServiceAccountToken: true
           execution:
             steps:
@@ -55,13 +55,18 @@ pipeline:
                     advanced:
                       log:
                         level: info
+                      fail_on_severity: critical
                     privileged: true
                     settings:
-                      tool_args: "--db-repository ghcr.io/aquasecurity/trivy-db:2 --insecure"
+                      tool_args: "--insecure --db-repository ghcr.io/aquasecurity/trivy-db --java-db-repository ghcr.io/aquasecurity/trivy-java-db"
+                      bypass_ssl_check: "true"
                     image:
                       type: docker_v2
                       name: carolanio/harness-lemmings
                       tag: build-<+pipeline.sequenceId>
+                      domain: docker.io
+                    sbom:
+                      format: spdx-json
     - stage:
         name: Deploy to Dev
         identifier: deploy_dev
@@ -71,7 +76,7 @@ pipeline:
               errors:
                 - AllErrors
               action:
-                type: Ignore
+                type: StageRollback
         spec:
           deploymentType: Kubernetes
           service:
@@ -117,12 +122,12 @@ pipeline:
                           echo "Waiting for Lemmings to be ready..."
                           sleep 10
                           SVC_URL="http://<+infra.releaseName>.<+infra.namespace>.svc.cluster.local"
-                          echo "DEBUG: SVC_URL is $SVC_URL"
-                          for i in $(seq 1 5); do
-                            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$SVC_URL/healthz" 2>/dev/null || echo "000")
+                          echo "Testing Lemmings at: ${SVC_URL}"
+                          for i in $(seq 1 15); do
+                            STATUS=$(curl --noproxy "*" -s -o /dev/null -w "%{http_code}" "$SVC_URL/healthz" 2>/dev/null || echo "000")
                             if [ "$STATUS" = "200" ]; then
                               echo "Lemmings is running! Health check passed."
-                              curl -s "$SVC_URL" | grep -qi "lemmings" && echo "Lemmings page verified!" && exit 0
+                              curl --noproxy "*" -s "$SVC_URL" | grep -qi "lemmings" && echo "Lemmings page verified!" && exit 0
                             fi
                             echo "Attempt $i: status=$STATUS, retrying..."
                             sleep 5
@@ -167,7 +172,7 @@ pipeline:
               errors:
                 - AllErrors
               action:
-                type: Ignore
+                type: StageRollback
         spec:
           deploymentType: Kubernetes
           service:
