@@ -41,6 +41,25 @@ pipeline:
                     dockerfile: app/Dockerfile
                     context: app
                     timeout: 15m
+              - step:
+                  type: AquaTrivy
+                  name: Security Scan
+                  identifier: security_scan
+                  spec:
+                    mode: orchestration
+                    config: default
+                    target:
+                      type: container
+                      name: harness-lemmings
+                      variant: <+pipeline.sequenceId>
+                    advanced:
+                      log:
+                        level: info
+                    privileged: true
+                    image:
+                      type: docker_v2
+                      name: carolanio/harness-lemmings
+                      tag: build-<+pipeline.sequenceId>
     - stage:
         name: Deploy to Dev
         identifier: deploy_dev
