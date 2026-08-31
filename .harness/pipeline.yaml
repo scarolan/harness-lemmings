@@ -57,7 +57,7 @@ pipeline:
                         level: info
                     privileged: true
                     settings:
-                      runner_skip_tls_verify: "true"
+                      runner_db_repository: ghcr.io/aquasecurity/trivy-db
                     image:
                       type: docker_v2
                       name: carolanio/harness-lemmings
