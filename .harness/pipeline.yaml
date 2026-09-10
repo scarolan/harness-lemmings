@@ -1,8 +1,8 @@
 pipeline:
-  name: lemmings-deploy
+  name: Lemmings Deploy
   identifier: lemmings_deploy
-  projectIdentifier: <+variable.projectIdentifier>
-  orgIdentifier: <+variable.orgIdentifier>
+  projectIdentifier: harness_demo_seanc
+  orgIdentifier: sandbox
   tags: {}
   properties:
     ci:
