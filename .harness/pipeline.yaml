@@ -80,7 +80,7 @@ pipeline:
         spec:
           deploymentType: Kubernetes
           service:
-            serviceRef: lemmings_k8s_svc
+            serviceRef: lemmings_demo
             serviceInputs:
               serviceDefinition:
                 type: Kubernetes
@@ -176,7 +176,7 @@ pipeline:
         spec:
           deploymentType: Kubernetes
           service:
-            serviceRef: lemmings_k8s_svc
+            serviceRef: lemmings_demo
             serviceInputs:
               serviceDefinition:
                 type: Kubernetes

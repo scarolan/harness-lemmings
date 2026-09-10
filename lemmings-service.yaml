@@ -1,6 +1,6 @@
 service:
-  name: lemmings-k8s-svc
-  identifier: lemmings_k8s_svc
+  name: Lemmings Demo
+  identifier: lemmings_demo
   orgIdentifier: sandbox
   projectIdentifier: harness_demo_seanc
   serviceDefinition:
