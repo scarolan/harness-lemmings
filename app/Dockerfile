@@ -17,6 +17,9 @@ RUN cp -r app/* . && \
 # --- Final stage ---
 FROM nginx:1.27-alpine
 
+RUN sed -i 's|https://|http://|' /etc/apk/repositories && \
+    apk update && apk upgrade --no-cache libcrypto3 libssl3
+
 # The context is the app/ directory, so nginx.conf and index.html are at the root
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY index.html /usr/share/nginx/html/index.html
