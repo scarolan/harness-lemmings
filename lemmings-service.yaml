@@ -1,8 +1,8 @@
 service:
-  name: Lemmings Demo
-  identifier: lemmings_demo
-  orgIdentifier: sandbox
-  projectIdentifier: harness_demo_seanc
+  name: Lemmings
+  identifier: lemmings
+  orgIdentifier: acme_corp
+  projectIdentifier: web_apps
   serviceDefinition:
     type: Kubernetes
     spec:
@@ -14,7 +14,7 @@ service:
               store:
                 type: Github
                 spec:
-                  connectorRef: github_lemmings
+                  connectorRef: org.github
                   gitFetchType: Branch
                   folderPath: helm/harness-lemmings
                   repoName: scarolan/harness-lemmings
@@ -39,7 +39,7 @@ service:
           sources:
             - identifier: lemmings_image
               spec:
-                connectorRef: dockerhub
+                connectorRef: org.dockerhub
                 imagePath: carolanio/harness-lemmings
                 tag: <+input>
               type: DockerRegistry
