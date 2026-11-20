@@ -114,7 +114,7 @@ pipeline:
                   spec:
                     shell: Bash
                     delegateSelectors:
-                      - joshua-delegate
+                      - se-delegate
                     source:
                       type: Inline
                       spec:
